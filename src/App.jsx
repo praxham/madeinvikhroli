@@ -6,7 +6,6 @@ import PurchasePolicy from "./pages/PurchasePolicyPage/PurchasePolicy";
 
 
 function App() {
-
   return (
     <>
       <Routes>
