@@ -64,7 +64,7 @@ const NavBar = () => {
         >
           {translateToMarathi ? "आमच्या बद्दल" : "About Us"}
         </div>
-      </div>
+      </Link>
 
       <div className="flex flex-row gap-2 cursor-pointer">
         <div onClick={handleSwitchLanguage} className="cursor-pointer">
