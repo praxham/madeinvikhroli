@@ -504,7 +504,6 @@ const Artifacts = ({translateToMarathi}) => {
                       className="w-full bg-mivCol text-black p-3 rounded-[15px] font-semibold cursor-pointer"
                       onClick={() => setSelectedArtifact(artifact.artifactID)}
                     >
-                      {console.log(("HI kasa aahes 1245").toLocaleString("hi-u-nu-deva"))}
                       {translateToMarathi ? `${(artifact.artifactPrice).toLocaleString("hi-u-nu-deva")}₹ विकत घ्या ` : `Buy Now for ${artifact.artifactPrice}₹`}
                       
                     </button>

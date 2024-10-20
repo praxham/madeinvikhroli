@@ -46,25 +46,25 @@ const NavBar = () => {
   
   
 
-  useEffect(()=>{
-    let intervalId;
-    const loadGoogleTranslate = () => {
-      const script = document.createElement('script');
-      script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-      script.async = true;
-      document.body.appendChild(script);
-      if(window.google && window.google.translate){
-        clearInterval(intervalId);
-        new window.google.translate.TraslateElement(
-          {
-            pageLanguage: 'en', layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE
-          },trasnlateElement.current
-        )
-      }
-    }
+  // useEffect(()=>{
+  //   let intervalId;
+  //   const loadGoogleTranslate = () => {
+  //     const script = document.createElement('script');
+  //     script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+  //     script.async = true;
+  //     document.body.appendChild(script);
+  //     if(window.google && window.google.translate){
+  //       clearInterval(intervalId);
+  //       new window.google.translate.TraslateElement(
+  //         {
+  //           pageLanguage: 'en', layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE
+  //         },trasnlateElement.current
+  //       )
+  //     }
+  //   }
   
-    intervalId = setInterval(loadGoogleTranslate,100)
-  },[])
+  //   intervalId = setInterval(loadGoogleTranslate,100)
+  // },[])
 
   useEffect(() => {
     localStorage.setItem(
