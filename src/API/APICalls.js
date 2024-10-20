@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const commonPoint = import.meta.env.VITE_VERCEL_BACKEND_URL;
+export const commonPoint = "https://miv-backend.vercel.app";
 
 console.log(import.meta.env.VITE_VERCEL_BACKEND_URL);
 
