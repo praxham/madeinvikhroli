@@ -118,6 +118,8 @@ const Artifacts = ({translateToMarathi}) => {
     setEmail(e.target.value);
   };
 
+  const testvar = "test"
+
   const handleBuyerUPIIDChange = (e) => {
     const inputVal = e.target.value;
     setBuyerUPIID(inputVal);
