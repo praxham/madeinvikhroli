@@ -58,7 +58,6 @@ const Artifacts = ({translateToMarathi}) => {
     fetchData();
   }, []);
 
-  // console.log(artifacts[0].sellerPhoneNumber);
 
   const handleEmailChange = (e) => {
     e.preventDefault();
@@ -70,13 +69,11 @@ const Artifacts = ({translateToMarathi}) => {
   const handleBuyerUPIIDChange = (e) => {
     const inputVal = e.target.value;
     setBuyerUPIID(inputVal);
-    console.log(buyerUPIID);
     if (/^[a-zA-Z0-9]+@[a-zA-Z]+$/.test(inputVal)) {
       setVerifyBuyerUPIID(true);
     } else {
       setVerifyBuyerUPIID(false);
     }
-    console.log(verifyBuyerUPIID);
   };
 
   const handleUPITransactionIDChange = (e) => {
@@ -87,7 +84,6 @@ const Artifacts = ({translateToMarathi}) => {
     } else {
       setVerifyUPITransactionID(false);
     }
-    console.log(verifyUPITransactionID);
   };
 
   const handlePaymentVerificationCodeChange = (e) => {
@@ -97,7 +93,6 @@ const Artifacts = ({translateToMarathi}) => {
     setPaymentVerified(
       matchCodes && verifyBuyerUPIID && verifyUPITransactionID
     );
-    console.log(paymentVerified, "hi");
   };
 
   const createTransactionRecord = async (
@@ -179,9 +174,7 @@ const Artifacts = ({translateToMarathi}) => {
   const handleSendWhatsApp = (artifactID, artifactPrice, sellerPhoneNumber) => {
     const message = `UPI ID: ${buyerUPIID}\nTransaction ID: ${upiTransactionID}\nVerification Code: ${paymentVerificationCode}`;
     const encodedMessage = encodeURIComponent(message);
-    console.log(sellerPhoneNumber);
     const whatsappLink = `https://wa.me/${sellerPhoneNumber}?text=${encodedMessage}`;
-    console.log(whatsappLink);
     createTransactionRecord(
       artifactID,
       artifactPrice,

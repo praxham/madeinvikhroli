@@ -2,8 +2,6 @@ import axios from 'axios';
 
 export const commonPoint = "https://miv-backend.vercel.app";
 
-console.log(import.meta.env.VITE_VERCEL_BACKEND_URL);
-
 export const postData = async (endPoint = "", data, type = false) => {
   try {
     const url = commonPoint + endPoint;
@@ -27,8 +25,7 @@ export const postData = async (endPoint = "", data, type = false) => {
 export const getData = async (endPoint = "") => {
   try {
     const url = commonPoint + endPoint;
-
-    console.log(url);
+    
     const response = await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
