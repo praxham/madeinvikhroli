@@ -23,44 +23,12 @@ import "react-toastify/dist/ReactToastify.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// const ProductsInfo = [
-//   {
-//     productId: "MIV0101",
-//     productTitle: "Clonned Flower",
-//     productBy: "@praxham",
-//     productPrice: 1,
-//     productImage: vibrantQueen,
-//     productTag: "Digital",
-//     UPIID: "prathampatankar1234@oksbi",
-//     productDescription: `"Vibrant Queen" celebrates the radiant spirit of motherhood. Captured on a Samsung A10s and artfully enhanced with Picsart, this striking portrait showcases a mother's innate vibrancy. The image masterfully balances raw authenticity with digital artistry, resulting in a visually captivating representation of maternal energy.`,
-//     sellerPhoneNumber: 9076006477,
-//     sellerEmailID: "prathampatankar1234@gmail.com",
-//   },
-//   {
-//     productId: "MIV0101",
-//     productTitle: "Clonned Flower",
-//     productBy: "@praxham",
-//     productPrice: 500,
-//     productImage: vibrantQueen,
-//     productTag: "Digital",
-//     UPIID: "prathampatankar1234@oksbi",
-//     productDescription: `"Vibrant Queen" is a psychedelic digital artwork, blending bold neon colors and abstract patterns to create hypnotic intensity.`,
-//     sellerPhoneNumber: 9076006477,
-//     sellerEmailID: "prathampatankar1234@gmail.com",
-//   },
-// ];
-
-// generate code for adding two numbers
-
 const Artifacts = ({translateToMarathi}) => {
   const [generatedUPILink, setGeneratedUPILink] = useState("");
-  const [email, setEmail] = useState("prathampatankar1234@gmail.com");
-  // prathampatankar1234@gmail.com
-  const [buyerUPIID, setBuyerUPIID] = useState("prathampatankar1234@okicici");
-  // prathampatankar1234@okicici
+  const [email, setEmail] = useState("");
+  const [buyerUPIID, setBuyerUPIID] = useState("");
   const [verifyBuyerUPIID, setVerifyBuyerUPIID] = useState(false);
-  const [upiTransactionID, setUPITransactionID] = useState(465276446933);
-  // 463385466149
+  const [upiTransactionID, setUPITransactionID] = useState(null);
   const [verifyUPITransactionID, setVerifyUPITransactionID] = useState(false);
   const [paymentVerificationCode, setPaymentVerificationCode] = useState();
   const [paymentVerified, setPaymentVerified] = useState(false);
@@ -74,10 +42,6 @@ const Artifacts = ({translateToMarathi}) => {
   const [selectedArtifact, setSelectedArtifact] = useState(null);
   const [artifactPopUp, setArtifactPopUp] = useState(false);
 
-  // const handleArtifactPopUp = (popUpState,artifactID) => {
-  //   setSelectedArtifact(artifactID)
-  //   setBuyNowPopUp(popUpState)
-  // }
 
   const testImg = "https://i.imgur.com/4k8E89r.png";
 
@@ -85,23 +49,6 @@ const Artifacts = ({translateToMarathi}) => {
   const trasactionDetails = useRef(null);
 
   let isSelected;
-
-  // useEffect(() => {
-  //   const handleClickOutside = (e) => {
-  //     // Check if the click is outside the referenced div
-  //     if (!artifactRef.current.contains(e.target)) {
-  //       isSelected= false // Hide the div when clicking outside
-  //     }
-  //   };
-
-  //   // Add event listener for mouse down
-  //   document.addEventListener('mousedown', handleClickOutside);
-
-  //   // // Cleanup function to remove event listener on component unmount
-  //   // return () => {
-  //   //   document.removeEventListener('mousedown', handleClickOutside);
-  //   // };
-  // }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -174,7 +121,7 @@ const Artifacts = ({translateToMarathi}) => {
       const response = await postTransactions(transactionData);
       setTransactionMessage(response.message);
       if (response.message === "Transaction Saved Successfully") {
-        toast.success("Transaction Saved Successfully"); // Success notification
+        toast.success("Transaction Saved Successfully"); 
         setIsAgreed(false);
         window.open(whatsappLink, "_blank");
         setEmail("");
@@ -182,9 +129,9 @@ const Artifacts = ({translateToMarathi}) => {
         setBuyerUPIID("");
         setPaymentVerificationCode("");
       } else if (response.message === "Transaction already exists") {
-        toast.warning("Transaction already exists"); // Warning notification
+        toast.warning("Transaction already exists"); 
       } else {
-        toast.error("Error processing transaction"); // Alert notification
+        toast.error("Error processing transaction"); 
       }
     } catch (error) {
       console.log(error);
@@ -422,6 +369,7 @@ const Artifacts = ({translateToMarathi}) => {
                         value={email}
                         onChange={handleEmailChange}
                         placeholder="Enter Email ID"
+                        required
                       />
                       <input
                         className={`bg-transparent text-white placeholder:text-[#808080] ${
@@ -433,6 +381,7 @@ const Artifacts = ({translateToMarathi}) => {
                         value={buyerUPIID}
                         onChange={handleBuyerUPIIDChange}
                         placeholder="Enter UPI ID"
+                        required
                       />
                       <input
                         className={`bg-transparent text-white placeholder:text-[#808080] ${
@@ -444,6 +393,7 @@ const Artifacts = ({translateToMarathi}) => {
                         value={upiTransactionID}
                         onChange={handleUPITransactionIDChange}
                         placeholder="Enter Transaction ID"
+                        required
                       />
                       <input
                         className={`bg-transparent text-white placeholder:text-[#808080] ${
@@ -455,6 +405,7 @@ const Artifacts = ({translateToMarathi}) => {
                         value={paymentVerificationCode}
                         onChange={handlePaymentVerificationCodeChange}
                         placeholder="Enter 6 Digit Code from UPI QR Note"
+                        required
                       />
                     </form>
                   </div>
