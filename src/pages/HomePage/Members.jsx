@@ -25,7 +25,7 @@ const membersData = [
   },
 ];
 
-const Members = (translateToMarathi) => {
+const Members = ({translateToMarathi}) => {
   useGSAP(() => {
     gsap.from(".members", {
       y: 100,

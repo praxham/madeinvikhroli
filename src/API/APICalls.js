@@ -2,6 +2,8 @@ import axios from 'axios';
 
 export const commonPoint = import.meta.env.VITE_VERCEL_BACKEND_URL;
 
+console.log(import.meta.env.VITE_VERCEL_BACKEND_URL);
+
 export const postData = async (endPoint = "", data, type = false) => {
   try {
     const url = commonPoint + endPoint;
@@ -26,6 +28,7 @@ export const getData = async (endPoint = "") => {
   try {
     const url = commonPoint + endPoint;
 
+    console.log(url);
     const response = await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
