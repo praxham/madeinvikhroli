@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import HeroSection from './HeroSection'
-import ProductsList from './ProductsList'
+import Artifacts from './Artifacts'
 import Members from './Members';
 import AboutUs from './AboutUs';
 
@@ -21,22 +21,28 @@ const HomePage = () => {
     };
   }, []);
 
-  const frequentWords = {
-    buyNow: 'विकत घ्या',
-    donate: 'डोनेट करा',
+  // const frequentWords = {
+  //   buyNow: 'विकत घ्या',
+  //   donate: 'डोनेट करा',
 
-  }
+  // }
 
-  const simpleTranslator = () => {
+  // const simpleTranslator = () => {
     
-  }
+  // }
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, []);
 
   return (
     <div className='snap-y'>
-      <HeroSection translateToMarathi={translateToMarathi} frequentWords={frequentWords}  />
-      <ProductsList translateToMarathi={translateToMarathi} />
+      <HeroSection translateToMarathi={translateToMarathi}   />
+      <Artifacts translateToMarathi={translateToMarathi} />
       <Members translateToMarathi={translateToMarathi} />
-      <AboutUs />
+      <AboutUs translateToMarathi={translateToMarathi} />
     </div>
   )
 }
