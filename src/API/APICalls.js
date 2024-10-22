@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const commonPoint = import.meta.env.VITE_VERCEL_BACKEND_URL;
+export const commonPoint = import.meta.env.VITE_VERCEL_BACKEND_URL || process.env.VITE_VERCEL_BACKEND_URL;
 
 export const postData = async (endPoint = "", data, type = false) => {
   try {
