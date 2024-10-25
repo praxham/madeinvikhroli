@@ -199,7 +199,7 @@ const Artifacts = ({translateToMarathi}) => {
   });
 
   return (
-    <div className="container2 w-[1240px] h-fit mx-auto mt-[500px] mb-16 flex flex-row gap-4 flex-wrap justify-center snap-start relative">
+    <div className="container2 w-[1240px] h-[800px] mx-auto mt-[500px] mb-16 flex flex-row gap-4 flex-wrap justify-center snap-start relative">
       <ToastContainer />
       <div className="artifacts absolute -top-[64px] left-0 -mb-[100px] text-[100px] font-medium text-white">
         {translateToMarathi ? "कलाकृत्या" : "Artifacts"}

@@ -1,77 +1,34 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import mivLogo from "../assets/mivlogo.svg";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Link } from "react-router-dom";
+import NavigationContext from "../context/NavigationContext";
 
 const NavBar = () => {
-  const [translateToMarathi, setTranslateToMarathi] = useState(
-    () => JSON.parse(localStorage.getItem("translateToMarathi")) || false
-  );
+  const trasnlateElement = useRef(null);
 
-  const trasnlateElement = useRef(null)
+  const {
+    setSectionClicked,
+    artifactsClicked,
+    membersClicked,
+    aboutUsClicked,
+    translateToMarathi,
+    setTranslateToMarathi,
+  } = useContext(NavigationContext);
 
-  
-  // const handleTranslateToMarathi = () => {
-  //   setTranslateToMarathi(true);
-  //   window.location.reload();
-  // };
-
-  // const handleTranslateToEnglish = () => {
-  //   setTranslateToMarathi(false);
-  //   window.location.reload();
-  // };
+  const handleNavigationClick = (section) => {
+    setSectionClicked(section);
+  };
 
   const handleSwitchLanguage = () => {
-    if(translateToMarathi === true){
+    if (translateToMarathi === true) {
       setTranslateToMarathi(false);
-      window.location.reload();
     }
-    if(translateToMarathi === false){
+    if (translateToMarathi === false) {
       setTranslateToMarathi(true);
-      window.location.reload();
     }
-  }
-
-  // useGSAP(() => {
-  //   gsap.from(".navitem", {
-  //     y: -20,
-  //     opacity: 0,
-  //     duration: 1,
-  //     stagger: true,
-  //   });
-  // });
-  
-
-  
-  
-
-  // useEffect(()=>{
-  //   let intervalId;
-  //   const loadGoogleTranslate = () => {
-  //     const script = document.createElement('script');
-  //     script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-  //     script.async = true;
-  //     document.body.appendChild(script);
-  //     if(window.google && window.google.translate){
-  //       clearInterval(intervalId);
-  //       new window.google.translate.TraslateElement(
-  //         {
-  //           pageLanguage: 'en', layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE
-  //         },trasnlateElement.current
-  //       )
-  //     }
-  //   }
-  
-  //   intervalId = setInterval(loadGoogleTranslate,100)
-  // },[])
-
-  useEffect(() => {
-    localStorage.setItem(
-      "translateToMarathi",
-      JSON.stringify(translateToMarathi)
-    );
-  }, [translateToMarathi]);
+  };
 
   return (
     <div className="fixed left-[50%] translate-x-[-50%] translate-y-[-50%] z-50 bg-black bg-opacity-80 backdrop-blur-[10px]  w-[1240px]  mx-auto p-4 rounded-[16px] flex flex-row justify-between items-center text-white text-4">
@@ -82,14 +39,29 @@ const NavBar = () => {
         </div>
       </Link>
 
-      <div className=" absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-row gap-[24px] px-4 py-2 bg-[#262626] rounded-[10px]">
-        <div className="navitem">
+      <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-row items-center justify-around gap-[24px] px-2 py-2 bg-[#262626] rounded-[10px]">
+        <div
+          className={`navitem cursor-pointer ${
+            artifactsClicked ? "bg-[#323232]" : "bg-transparent"
+          } px-2 py-1 rounded-[5px]`}
+          onClick={() => handleNavigationClick("artifacts")}
+        >
           {translateToMarathi ? "कलाकृत्या" : "Artifacts"}
         </div>
-        <div className="navitem">
+        <div
+          className={`navitem cursor-pointer ${
+            membersClicked ? "bg-[#323232]" : "bg-transparent"
+          } px-2 py-1 rounded-[5px]`}
+          onClick={() => handleNavigationClick("members")}
+        >
           {translateToMarathi ? "सदस्य" : "Members"}
         </div>
-        <div className="navitem">
+        <div
+          className={`navitem cursor-pointer ${
+            aboutUsClicked ? "bg-[#323232]" : "bg-transparent"
+          } px-2 py-1 rounded-[5px]`}
+          onClick={() => handleNavigationClick("aboutUs")}
+        >
           {translateToMarathi ? "आमच्या बद्दल" : "About Us"}
         </div>
       </div>
@@ -101,7 +73,7 @@ const NavBar = () => {
         <div
           onClick={handleSwitchLanguage}
           className={`p-1 h-fit w-[36px] rounded-[50px] bg-[#262626] flex flex-row ${
-            translateToMarathi ? "justify-end" : "justify-start "
+            translateToMarathi ? "justify-end" : "justify-start"
           }`}
         >
           <div className="w-3 h-3 bg-white rounded-[50px]"></div>
