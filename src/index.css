@@ -2,8 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+html,body {
   background: #000;
   font-family: "Poppins", system-ui;
-  overflow-x: hidden;
+  overflow-x: hidden !important; 
+  position: relative !important; 
+  width: 100vw !important;
+}
+
+@font-face {
+  font-family: 'Dirtyline';
+  src: url('/Dirtyline%2036daysoftype%202022.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }

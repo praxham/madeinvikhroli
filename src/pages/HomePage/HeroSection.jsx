@@ -23,11 +23,11 @@ const HeroSection = ({ translateToMarathi }) => {
   ); 
   return (
     <div
-      className="container w-[1240px] mx-auto mt-16 flex flex-col items-center justify-center relative snap-start"
+      className="container w-full h-screen lg:h-full lg:w-[1240px] mx-auto mt-16 flex flex-col items-center justify-center relative snap-start"
     >
-      <div className="z-20 flex flex-col items-center gap-2 text-white font-medium mt-[200px]">
-        <div className="text-[100px] ">
-          {translateToMarathi ? "एक कला मंडळ" : "An Art Collective"}
+      <div className="z-20 flex flex-col items-center gap-2 text-white font-medium mt-[380px] lg:mt-[200px] mx-4">
+        <div className="lg:text-[100px] text-[64px] text-center font-dirtyline">
+          {translateToMarathi ? "एक कला मंडळ" : "An Art Collective "}
         </div>
         <div className="flex flex-row gap-4">
           <button className="bg-mivCol text-black px-[12px] py-[6px] rounded-[50px]">
@@ -43,7 +43,15 @@ const HeroSection = ({ translateToMarathi }) => {
           </a>
         </div>
       </div>
-      <div className="mivlogogradient  absolute bottom-[36px] -left-[150px] w-[275px] skew-x-[20deg] -rotate-[35deg]">
+      <div className="absolute lg:bottom-[36px] block lg:hidden left-[50%] transform -translate-x-[50%] top-[10%] lg:-left-[150px] w-[220px] h-fit lg:w-[275px] lg:skew-x-[20deg] lg:-rotate-[35deg]">
+        <img className="absolute z-10" src={mivlogogradient} alt="" />
+        <img
+          className="animate-pulse absolute blur-2xl z-0 opacity-75"
+          src={mivlogogradient}
+          alt=""
+        />
+      </div>
+      <div className="mivlogogradient absolute bottom-[36px] hidden lg:block lg:-left-[150px] w-[150px] h-fit lg:w-[275px] lg:skew-x-[20deg] lg:-rotate-[35deg]">
         <img className="absolute z-10" src={mivlogogradient} alt="" />
         <img
           className="absolute blur-2xl z-0 opacity-75"
@@ -51,7 +59,7 @@ const HeroSection = ({ translateToMarathi }) => {
           alt=""
         />
       </div>
-      <div className="mivstation absolute bottom-[84px] -right-[220px] w-[450px] -skew-x-[25deg] rotate-[20deg]">
+      <div className="mivstation absolute bottom-[84px] hidden lg:block lg:-right-[220px] w-[200px] lg:w-[450px] lg:-skew-x-[25deg] lg:rotate-[20deg]">
         <img className="absolute z-10" src={mivstation} alt="" />
         <img
           className="absolute blur-2xl z-0 opacity-75"

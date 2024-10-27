@@ -72,9 +72,9 @@ const PurchasePolicy = () => {
   
 
   return (
-    <div className="w-[1240px] mx-auto mt-16 flex flex-col items-center justify-center text-white">
-      <div className="text-[84px] font-medium my-64">Purchase Policy</div>
-      <div className="w-full flex flex-col gap-4">
+    <div className="lg:w-[1240px] mx-4 lg:mx-auto mt-16 flex flex-col items-center justify-center text-white">
+      <div className="text-[84px] w-full h-screen text-center flex flex-col items-center justify-center lg:h-fit font-medium lg:my-64 font-dirtyline">Purchase Policy</div>
+      <div className="w-fit flex flex-col gap-4">
         {sections.map((section, index) => (
           <div key={index} className="mb-6">
             <h2 className="text-xl font-semibold mb-2 ">

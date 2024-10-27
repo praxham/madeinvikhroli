@@ -7,7 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        mivCol: '#FFCF21', //A8E6CF
+        mivCol: '#FFCF21', 
+      },
+      fontFamily: {
+        dirtyline: ['Dirtyline', 'sans-serif'], 
       },
     },
   },

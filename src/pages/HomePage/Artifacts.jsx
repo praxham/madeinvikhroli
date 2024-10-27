@@ -2,16 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import QRCode from "react-qr-code";
 import mivlogowoutline from "../../assets/mivlogowoutline.svg";
 import {
-  CardBody,
   CardContainer,
   CardItem,
 } from "../../Components/3d-card.jsx";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/pagination";
-import "../../index.css";
-import { EffectCoverflow, Pagination } from "swiper/modules";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -20,10 +13,11 @@ import { getArtifacts } from "../../API/getArtifacts.js";
 import { postTransactions } from "../../API/postTransaction.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "../../Components/Loading.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Artifacts = ({translateToMarathi}) => {
+const Artifacts = ({ translateToMarathi }) => {
   const [generatedUPILink, setGeneratedUPILink] = useState("");
   const [email, setEmail] = useState("");
   const [buyerUPIID, setBuyerUPIID] = useState("");
@@ -41,7 +35,7 @@ const Artifacts = ({translateToMarathi}) => {
   const [transactionMessage, setTransactionMessage] = useState("");
   const [selectedArtifact, setSelectedArtifact] = useState(null);
   const [artifactPopUp, setArtifactPopUp] = useState(false);
-
+  const [loading, setLoading] = useState(true);
 
   const testImg = "https://i.imgur.com/4k8E89r.png";
 
@@ -52,19 +46,25 @@ const Artifacts = ({translateToMarathi}) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getArtifacts();
-      setArtifacts(response);
+      try {
+        setLoading(true); // Set loading to true before fetching
+        const response = await getArtifacts();
+        setArtifacts(response);
+      } catch (error) {
+        console.error("Error fetching artifacts:", error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching
+      }
     };
     fetchData();
   }, []);
-
 
   const handleEmailChange = (e) => {
     e.preventDefault();
     setEmail(e.target.value);
   };
 
-  const testvar = "test"
+  const testvar = "test";
 
   const handleBuyerUPIIDChange = (e) => {
     const inputVal = e.target.value;
@@ -116,7 +116,7 @@ const Artifacts = ({translateToMarathi}) => {
       const response = await postTransactions(transactionData);
       setTransactionMessage(response.message);
       if (response.message === "Transaction Saved Successfully") {
-        toast.success("Transaction Saved Successfully"); 
+        toast.success("Transaction Saved Successfully");
         setIsAgreed(false);
         window.open(whatsappLink, "_blank");
         setEmail("");
@@ -124,9 +124,9 @@ const Artifacts = ({translateToMarathi}) => {
         setBuyerUPIID("");
         setPaymentVerificationCode("");
       } else if (response.message === "Transaction already exists") {
-        toast.warning("Transaction already exists"); 
+        toast.warning("Transaction already exists");
       } else {
-        toast.error("Error processing transaction"); 
+        toast.error("Error processing transaction");
       }
     } catch (error) {
       console.log(error);
@@ -197,38 +197,39 @@ const Artifacts = ({translateToMarathi}) => {
       },
     });
   });
-
   return (
-    <div className="container2 w-[1240px] min-h-[800px] mx-auto mt-[500px] mb-16 flex flex-row gap-4 flex-wrap justify-center snap-start relative">
+    <div className="container2 w-full lg:w-[1240px] h-full lg:min-h-[800px] mx-auto mt-[100px] lg:mt-[500px] mb-16 flex flex-row gap-4 gap-y-0 flex-wrap justify-center snap-start relative">
       <ToastContainer />
-      <div className="artifacts absolute -top-[64px] left-0 -mb-[100px] text-[100px] font-medium text-white">
+      <div className="artifacts absolute -top-[64px] left-0 lg:-mb-[100px] text-[64px] mx-4 lg:mx-0 lg:text-[100px] font-medium text-white font-dirtyline">
         {translateToMarathi ? "कलाकृत्या" : "Artifacts"}
       </div>
+      {loading ? (<Loading />) : (
+        <>
       {artifacts.map((artifact) => {
         isSelected = selectedArtifact === artifact.artifactID;
         return (
-          <>
             <CardContainer
               key={artifact.artifactID}
               className={`inter-var ${
-                isSelected ? "w-[1200px] flex-row" : "w-fit flex-col"
-              } h-fit flex items-start gap-2 gap-y-2 bg-[#1A1A1A] p-4 rounded-[12px] text-white text-4 font-medium`}
+                isSelected ? "lg:w-[1200px] w-full flex-row" : "w-fit flex-col"
+              } mx-4 lg:mx-0 h-fit flex items-center lg:items-start gap-2 gap-y-2 bg-[#1A1A1A] p-4 rounded-[12px] text-white text-4 font-medium`}
               ref={artifactRef}
             >
               {isSelected ? (
                 <CardItem
                   translateZ="40"
-                  className={`h-full bg-black flex flex-row ${
+                  className={`true h-full bg-black flex flex-row ${
                     isSelected
-                      ? "items-center w-1/2"
-                      : "items-start justify-left w-full"
-                  } justify-center relative rounded-[12px]`}
+                      ? "items-center lg:w-1/2"
+                      : "items-start justify-left"
+                  } justify-center relative rounded-[12px] hidden lg:block`}
                 >
                   <img
                     className="rounded-[12px]"
                     src={artifact.artifactImage}
                     alt=""
                   />
+                  
                   <div className="absolute top-4 right-4 w-fit px-2 py-1 border-white text-white border-[2px] rounded-[20px]">
                     {artifact.artifactTag}
                   </div>
@@ -236,12 +237,12 @@ const Artifacts = ({translateToMarathi}) => {
               ) : (
                 <CardItem
                   translateZ="40"
-                  className="w-[350px] h-full bg-black flex flex-col items-center justify-center relative rounded-[12px]"
+                  className="lg:w-[350px] w-full h-full bg-black lg:flex flex-col items-center justify-center relative rounded-[12px] hidden"
                 >
                   <div className="bg-black flex flex-row items-center justify-center relative rounded-[12px]">
                     <img
                       className="rounded-[12px]"
-                      src={artifact.artifactImage || testImg}
+                      src={artifact.artifactImage}
                       alt=""
                     />
                     <div className="absolute top-4 right-4 w-fit px-2 py-1 border-white text-white border-[2px] rounded-[20px]">
@@ -253,15 +254,29 @@ const Artifacts = ({translateToMarathi}) => {
               {isSelected ? (
                 <CardItem
                   translateZ="40"
-                  className="w-1/2 flex flex-col gap-2 text-white rounded-[8px] p-4"
+                  className="lg:w-1/2 w-full flex flex-col gap-2 text-white rounded-[8px] lg:p-4"
                 >
+                  <div
+                    className={`h-full w-full bg-black flex flex-row ${
+                      isSelected
+                        ? "items-center lg:w-1/2"
+                        : "items-start justify-left"
+                    } justify-center relative rounded-[12px] lg:hidden block`}
+                  >
+                    <img
+                      className="rounded-[12px]"
+                      src={artifact.artifactImage}
+                      alt=""
+                    />
+                    <div className="absolute top-4 right-4 w-fit px-2 py-1 border-white text-white border-[2px] rounded-[20px]">
+                      {artifact.artifactTag}
+                    </div>
+                  </div>
                   <div className="w-full flex flex-row justify-between relative">
                     <div className="flex flex-col gap-2">
-                      <div className="flex flex-row gap-2">
-                        <div className="text-nowrap">
-                          {artifact.artifactTitle}
-                        </div>
-                        <div className="text-[#808080] text-nowrap">
+                      <div className="flex flex-row gap-2 text-wrap">
+                        <div className="">{artifact.artifactTitle}</div>
+                        <div className="text-[#808080]">
                           by {artifact.artifactBy}
                         </div>
                       </div>
@@ -273,7 +288,7 @@ const Artifacts = ({translateToMarathi}) => {
                   </div>
                   <div
                     onChange={(e) => setIsAgreed(e.target.checked)}
-                    className="flex items-center"
+                    className="w-full flex items-start"
                   >
                     <input
                       id="agreement"
@@ -291,24 +306,30 @@ const Artifacts = ({translateToMarathi}) => {
                     </label>
                   </div>
                   <div
-                    className={`flex flex-row gap-4 ${
+                    className={`w-full flex flex-col items-center lg:flex-row gap-4 ${
                       isAgreed
                         ? "opacity-100"
                         : "opacity-50 pointer-events-none"
                     }`}
                   >
-                    <div className="h-fit w-fit relative flex flex-col items-center">
+                    <div className="h-fit w-full lg:w-fit relative flex flex-col items-center">
                       <QRCode
                         className={`${
                           generatedUPILink ? "blur-none" : "blur-sm"
-                        } rounded-[8px] p-4 bg-white`}
+                        } rounded-[8px] p-4 bg-white lg:block hidden`}
                         value={generatedUPILink}
                         size={256} // You can adjust this size
                         level={"H"}
                       />
+                      <a
+                        href={generatedUPILink}
+                        className="w-full bg-mivCol text-black p-3 text-center rounded-[15px] font-semibold lg:hidden block"
+                      >
+                        Pay via UPI apps
+                      </a>
                       {generatedUPILink && (
                         <img
-                          className="absolute top-[45%] left-[50%] translate-x-[-50%] translate-y-[-50%] h-[74px] filter-[drop-shadow(0 0 16px white)]"
+                          className="absolute top-[45%] left-[50%] translate-x-[-50%] translate-y-[-50%] h-[74px] filter-[drop-shadow(0 0 16px white)] lg:block hidden"
                           src={mivlogowoutline}
                         />
                       )}
@@ -321,9 +342,11 @@ const Artifacts = ({translateToMarathi}) => {
                               artifact.UPIID
                             )
                           }
-                          className="text-[14px] bg-white text-black px-2 py-1 mt-2 rounded-[15px] text-nowrap"
+                          className="w-full lg:w-fit text-[14px] bg-white text-black px-2 py-1 mt-2 rounded-[15px] text-nowrap whitespace-nowrap"
                         >
-                          Generate Another Payment QR
+                          Generate Another Payment{" "}
+                          <span className="hidden lg:block">QR</span>{" "}
+                          <span className="block lg:hidden">Link</span>
                         </button>
                       ) : (
                         <button
@@ -334,9 +357,11 @@ const Artifacts = ({translateToMarathi}) => {
                               artifact.UPIID
                             )
                           }
-                          className="text-[14px] bg-white text-black px-2 py-1 mt-2 rounded-[15px] text-nowrap"
+                          className="w-full lg:w-fit text-[14px] bg-white text-black px-2 py-1 mt-2 rounded-[15px] text-nowrap"
                         >
-                          Generate Payment QR
+                          Generate Payment{" "}
+                          <span className="hidden lg:block">QR</span>{" "}
+                          <span className="block lg:hidden">Link</span>
                         </button>
 
                         // <button
@@ -402,7 +427,7 @@ const Artifacts = ({translateToMarathi}) => {
                       />
                     </form>
                   </div>
-                  <div className="w-full flex flex-row gap-2 font-semibold">
+                  <div className="w-full flex flex-col lg:flex-row gap-2 font-semibold">
                     <button
                       className={`w-full bg-mivCol text-black py-3 rounded-[15px] ${
                         paymentVerified ? "opacity-100" : "opacity-50"
@@ -428,7 +453,7 @@ const Artifacts = ({translateToMarathi}) => {
                         paymentVerified ? "opacity-100" : "opacity-50"
                       }`}
                     >
-                      Recieve Deliverables on Email (Automatic)
+                      Recieve Deliverables on Email
                     </button>
                   </div>
                 </CardItem>
@@ -437,6 +462,22 @@ const Artifacts = ({translateToMarathi}) => {
                   translateZ="40"
                   className="w-full text-white rounded-[8px]"
                 >
+                  <div
+                    className={`h-full bg-black flex flex-row ${
+                      isSelected
+                        ? "items-center lg:w-1/2 w-full"
+                        : "items-start justify-left w-full"
+                    } justify-center relative rounded-[12px] lg:hidden block`}
+                  >
+                    <img
+                      className="rounded-[12px]"
+                      src={artifact.artifactImage}
+                      alt=""
+                    />
+                    <div className="absolute top-4 right-4 w-fit px-2 py-1 border-white text-white border-[2px] rounded-[20px]">
+                      {artifact.artifactTag}
+                    </div>
+                  </div>
                   <div className="w-full flex flex-col gap-2 justify-between">
                     <div className="w-full flex flex-row items-start justify-start gap-2">
                       <div className="text-nowrap">
@@ -450,18 +491,21 @@ const Artifacts = ({translateToMarathi}) => {
                       className="w-full bg-mivCol text-black p-3 rounded-[15px] font-semibold cursor-pointer"
                       onClick={() => setSelectedArtifact(artifact.artifactID)}
                     >
-                      {translateToMarathi ? `${(artifact.artifactPrice).toLocaleString("hi-u-nu-deva")}₹ विकत घ्या ` : `Buy Now for ${artifact.artifactPrice}₹`}
-                      
+                      {translateToMarathi
+                        ? `${artifact.artifactPrice.toLocaleString(
+                            "hi-u-nu-deva"
+                          )}₹ विकत घ्या `
+                        : `Buy Now for ${artifact.artifactPrice}₹`}
                     </button>
                     {/* <div>{artifact.artifactPrice}₹</div> */}
                   </div>
                 </CardItem>
               )}
-            </CardContainer>
-          </>
-          // </SwiperSlide>
+            </CardContainer> 
         );
       })}
+      </>)
+      }
       {/* </Swiper> */}
     </div>
   );

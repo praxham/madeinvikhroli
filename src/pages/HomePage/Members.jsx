@@ -39,8 +39,8 @@ const Members = ({translateToMarathi}) => {
   });
 
   return (
-    <div className="container3 w-[1240px] h-[800px] mx-auto mb-16 text-center">
-      <div className="members text-[100px] font-medium text-white ml-auto text-right">
+    <div className="container3 w-full lg:w-[1240px] lg:h-[800px] mx-auto mb-16 text-center">
+      <div className="members text-[64px] h-fit -mb-[36px] mx-4 lg:mx-0 lg:text-[100px] font-medium text-white ml-auto text-right font-dirtyline">
         {translateToMarathi ? "सदस्य" : "Members"}
       </div>
       {/* <Swiper
@@ -62,11 +62,11 @@ const Members = ({translateToMarathi}) => {
         {membersData.map((membersData) => {
           return (
             // <SwiperSlide>
-              <CardContainer className="w-fit flex flex-col gap-2 items-start bg-[#1A1A1A] p-4 rounded-[15px] text-white text-4 font-medium">
+              <CardContainer className="lg:w-fit w-full mx-4 flex flex-col gap-2 items-start bg-[#1A1A1A] p-4 rounded-[15px] text-white text-4 font-medium">
                 <CardItem translateZ="40">
                   <img
                     translateZ="40"
-                    className="w-[350px] rounded-[12px]"
+                    className="lg:w-[350px] rounded-[12px]"
                     src={membersData.image}
                     alt=""
                   />

@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const AboutUs = ({translateToMarathi}) => {
   const { ref, inView } = useInView({
-    threshold: 0.5, // Trigger when 50% of the component is visible
+    threshold: 0.1, // Trigger when 50% of the component is visible
     triggerOnce: true // Only trigger once
   });
 
@@ -27,23 +27,23 @@ const AboutUs = ({translateToMarathi}) => {
   }) 
 
   return (
-    <div ref={ref} className="container4 w-[1240px] h-[800px] mx-auto mb-[100px] text-center text-white">
-      <div className="aboutus text-[100px] font-medium ml-auto text-left">
+    <div ref={ref} className="container4 w-fit mx-4 lg:w-[1240px] h-fit lg:h-[800px] lg:mx-auto mb-[100px] text-center text-white">
+      <div className="aboutus w-full h-fit -mb-[18px] text-[64px] lg:text-[100px] font-medium ml-auto text-left font-dirtyline">
         {translateToMarathi ? "आमच्या बद्दल" : "About Us"}
       </div>
-      <div className="flex flex-col gap-4 z-20">
-        <div className="h-1/2 flex flex-row gap-4">
-          <div className="w-1/3 h-full flex flex-col items-center gap-4 bg-[#1A1A1A] p-4 rounded-[15px] hover:border-white hover:border-[1px]">
-            <div className="w-[150px] h-[150px] rounded-[100px] flex flex-row items-center justify-center">
-              <div className="font-semibold text-[84px]">
+      <div className="w-full flex flex-col gap-4 z-20">
+        <div className="h-1/2 w-full flex flex-col lg:flex-row gap-4">
+          <div className="lg:w-1/3 w-full h-full flex flex-col items-center gap-4 bg-[#1A1A1A] p-4 rounded-[15px] hover:border-white hover:border-[1px]">
+            <div className="w-full lg:w-[150px] h-[150px] rounded-[100px] flex flex-row items-center justify-center">
+              <div className="font-semibold text-[64px] lg:text-[84px]">
                 ~{inView && <CountUp end={17.9} duration={2} />}
               </div>
               <div className="mt-[48px]">kg</div>
             </div>
             <div>Carbon Footprint</div>
           </div>
-          <div className="w-1/3 h-full flex flex-col items-center gap-4 bg-[#1A1A1A] p-4 rounded-[15px] hover:border-white hover:border-[1px]">
-            <div className="w-[150px] h-[150px] rounded-[100px] flex flex-row items-center justify-center">
+          <div className="lg:w-1/3 w-full h-full flex flex-col items-center gap-4 bg-[#1A1A1A] p-4 rounded-[15px] hover:border-white hover:border-[1px]">
+            <div className="w-full lg:w-[150px] h-[150px] rounded-[100px] flex flex-row items-center justify-center">
               <div className="font-semibold text-[84px]">
                 ~{inView && <CountUp end={21.84} duration={2} />}
               </div>
@@ -51,8 +51,8 @@ const AboutUs = ({translateToMarathi}) => {
             </div>
             <div>Energy Used (Locally)</div>
           </div>
-          <div className="w-1/3 h-full flex flex-col items-center gap-4 bg-[#1A1A1A] p-4 rounded-[15px] hover:border-white hover:border-[1px]">
-            <div className="w-[150px] h-[150px] rounded-[100px] flex flex-row items-center justify-center">
+          <div className="lg:w-1/3 w-full h-full flex flex-col items-center gap-4 bg-[#1A1A1A] p-4 rounded-[15px] hover:border-white hover:border-[1px]">
+            <div className="w-full lg:w-[150px] h-[150px] rounded-[100px] flex flex-row items-center justify-center">
               <div className="font-semibold text-[84px]">
                 ~{inView && <CountUp end={30} duration={5} />}
               </div>
@@ -61,16 +61,16 @@ const AboutUs = ({translateToMarathi}) => {
             <div>Renewable Energy Used</div>
           </div>
         </div>
-        <div className="h-1/2 flex flex-row gap-4">
-          <div className="w-1/3 h-full flex flex-col items-center gap-4 bg-[#1A1A1A] p-4 rounded-[15px] hover:border-white hover:border-[1px]">
-            <div className="w-[150px] h-[150px] rounded-[100px] flex flex-row items-center justify-center">
+        <div className="h-1/2 w-full flex flex-col lg:flex-row gap-4">
+          <div className="lg:w-1/3 w-full h-full flex flex-col items-center gap-4 bg-[#1A1A1A] p-4 rounded-[15px] hover:border-white hover:border-[1px]">
+            <div className="w-full lg:w-[150px] h-[150px] rounded-[100px] flex flex-row items-center justify-center">
               <div className="font-semibold text-[84px]">0</div>
               <div className="mt-[48px]"></div>
             </div>
             <div>Mangroves Planted (for CO2 Offset)</div>
           </div>
-          <div className="w-1/3 h-full flex flex-col items-center gap-4 bg-[#1A1A1A] p-4 rounded-[15px] hover:border-white hover:border-[1px]">
-            <div className="w-[150px] h-[150px] rounded-[100px] flex flex-row items-center justify-center">
+          <div className="lg:w-1/3 w-full h-full flex flex-col items-center gap-4 bg-[#1A1A1A] p-4 rounded-[15px] hover:border-white hover:border-[1px]">
+            <div className="w-full lg:w-[150px] h-[150px] rounded-[100px] flex flex-row items-center justify-center">
               <div className="font-semibold text-[84px]">
                 ~{inView && <CountUp end={2652.88} duration={5} />}
               </div>
@@ -78,9 +78,9 @@ const AboutUs = ({translateToMarathi}) => {
             </div>
             <div>Money Spent</div>
           </div>
-          <div className="w-1/3 h-full flex flex-col items-center gap-4 bg-[#1A1A1A] p-4 rounded-[15px] hover:border-white hover:border-[1px]">
+          <div className="lg:w-1/3 w-full h-full flex flex-col items-center gap-4 bg-[#1A1A1A] p-4 rounded-[15px] hover:border-white hover:border-[1px]">
             <QRCode
-              className='w-[150px] h-[150px] rounded-[8px] p-4 bg-white'
+              className='w-full lg:w-[150px] h-[150px] rounded-[8px] p-4 bg-white'
               value='upi://pay?pa=prathampatankar1234@oksbi&pn=prathampatankar&tn=Donation&cu=INR'
               size={256}
               level={"H"}

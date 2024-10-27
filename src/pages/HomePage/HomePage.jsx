@@ -4,6 +4,7 @@ import Artifacts from './Artifacts'
 import Members from './Members';
 import AboutUs from './AboutUs';
 import NavigationContext from '../../context/NavigationContext';
+import Loading from '../../Components/Loading';
 
 const HomePage = () => {
   const [clickedSection, setClickedSection] = useState(null);
@@ -80,6 +81,7 @@ const HomePage = () => {
       <HeroSection translateToMarathi={translateToMarathi}   />
       <div ref={artifactsRef}>
         <Artifacts translateToMarathi={translateToMarathi} />
+        {/* <Loading/> */}
       </div>
       <div ref={membersRef}>
         <Members translateToMarathi={translateToMarathi} />
