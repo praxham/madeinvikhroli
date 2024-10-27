@@ -114,7 +114,7 @@ const NavBar = () => {
           <img
             onClick={handleSwitchLanguage}
             src={engtomartranslateicon}
-            alt=""
+            alt="made in vikrholi"
           />
           {/* <div onClick={handleSwitchLanguage} className="cursor-pointer">
           En

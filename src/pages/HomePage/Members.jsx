@@ -68,7 +68,7 @@ const Members = ({translateToMarathi}) => {
                     translateZ="40"
                     className="lg:w-[350px] rounded-[12px]"
                     src={membersData.image}
-                    alt=""
+                    alt="made in vikrholi"
                   />
                 </CardItem>
                 <CardItem translateZ="40" className="text-white">

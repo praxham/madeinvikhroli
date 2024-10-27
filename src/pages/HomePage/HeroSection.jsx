@@ -48,7 +48,7 @@ const HeroSection = ({ translateToMarathi }) => {
         <img
           className="animate-pulse absolute blur-2xl z-0 opacity-75"
           src={mivlogogradient}
-          alt=""
+          alt="made in vikrholi"
         />
       </div>
       <div className="mivlogogradient absolute bottom-[36px] hidden lg:block lg:-left-[150px] w-[150px] h-fit lg:w-[275px] lg:skew-x-[20deg] lg:-rotate-[35deg]">
@@ -56,7 +56,7 @@ const HeroSection = ({ translateToMarathi }) => {
         <img
           className="absolute blur-2xl z-0 opacity-75"
           src={mivlogogradient}
-          alt=""
+          alt="made in vikrholi"
         />
       </div>
       <div className="mivstation absolute bottom-[84px] hidden lg:block lg:-right-[220px] w-[200px] lg:w-[450px] lg:-skew-x-[25deg] lg:rotate-[20deg]">
@@ -64,7 +64,7 @@ const HeroSection = ({ translateToMarathi }) => {
         <img
           className="absolute blur-2xl z-0 opacity-75"
           src={mivstation}
-          alt=""
+          alt="made in vikrholi"
         />
       </div>
     </div>

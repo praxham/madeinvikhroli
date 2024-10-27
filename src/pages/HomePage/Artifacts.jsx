@@ -227,7 +227,7 @@ const Artifacts = ({ translateToMarathi }) => {
                   <img
                     className="rounded-[12px]"
                     src={artifact.artifactImage}
-                    alt=""
+                    alt="made in vikrholi"
                   />
                   
                   <div className="absolute top-4 right-4 w-fit px-2 py-1 border-white text-white border-[2px] rounded-[20px]">
@@ -243,7 +243,7 @@ const Artifacts = ({ translateToMarathi }) => {
                     <img
                       className="rounded-[12px]"
                       src={artifact.artifactImage}
-                      alt=""
+                      alt="made in vikrholi"
                     />
                     <div className="absolute top-4 right-4 w-fit px-2 py-1 border-white text-white border-[2px] rounded-[20px]">
                       {artifact.artifactTag}
@@ -266,7 +266,7 @@ const Artifacts = ({ translateToMarathi }) => {
                     <img
                       className="rounded-[12px]"
                       src={artifact.artifactImage}
-                      alt=""
+                      alt="made in vikrholi"
                     />
                     <div className="absolute top-4 right-4 w-fit px-2 py-1 border-white text-white border-[2px] rounded-[20px]">
                       {artifact.artifactTag}
@@ -472,7 +472,7 @@ const Artifacts = ({ translateToMarathi }) => {
                     <img
                       className="rounded-[12px]"
                       src={artifact.artifactImage}
-                      alt=""
+                      alt="made in vikrholi"
                     />
                     <div className="absolute top-4 right-4 w-fit px-2 py-1 border-white text-white border-[2px] rounded-[20px]">
                       {artifact.artifactTag}
