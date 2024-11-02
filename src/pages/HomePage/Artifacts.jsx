@@ -198,9 +198,9 @@ const Artifacts = ({ translateToMarathi }) => {
     });
   });
   return (
-    <div className="container2 w-full lg:w-[1240px] h-full lg:min-h-[800px] mx-auto mt-[100px] lg:mt-[500px] mb-16 flex flex-row gap-4 gap-y-0 flex-wrap justify-center snap-start relative">
+    <div className="container2 w-full lg:w-[1240px] h-full mx-auto mt-[100px] lg:mt-[500px] mb-16 flex flex-row gap-4 gap-y-0 flex-wrap justify-center snap-start relative">
       <ToastContainer />
-      <div className="artifacts absolute -top-[64px] left-0 lg:-mb-[100px] text-[64px] mx-4 lg:mx-0 lg:text-[100px] font-medium text-white font-dirtyline">
+      <div className="artifacts absolute -top-[64px] lg:-top-[124px] left-0 lg:-mb-[100px] text-[64px] mx-4 lg:mx-0 lg:text-[100px] font-medium text-white font-dirtyline">
         {translateToMarathi ? "कलाकृत्या" : "Artifacts"}
       </div>
       {loading ? (<Loading />) : (
@@ -460,7 +460,7 @@ const Artifacts = ({ translateToMarathi }) => {
               ) : (
                 <CardItem
                   translateZ="40"
-                  className="w-full text-white rounded-[8px]"
+                  className="w-full text-white rounded-[8px] flex flex-col gap-2"
                 >
                   <div
                     className={`h-full bg-black flex flex-row ${

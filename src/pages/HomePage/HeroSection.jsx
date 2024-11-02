@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import mivlogogradient from "../../assets/mivlogogradient.png";
 import mivstation from "../../assets/mivstation.png";
 import discord from "../../assets/discord.svg";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import DonationQRPopUp from "../../Components/DonationQRPopUp";
 
 const HeroSection = ({ translateToMarathi }) => {
+  const [donationQRPopUp, setDonationQRPopUp] = useState(false)
   useGSAP(() => {
       gsap.from(".mivlogogradient", {
         x: -500,
@@ -30,10 +32,11 @@ const HeroSection = ({ translateToMarathi }) => {
           {translateToMarathi ? "एक कला मंडळ" : "An Art Collective "}
         </div>
         <div className="flex flex-row gap-4">
-          <button className="bg-mivCol text-black px-[12px] py-[6px] rounded-[50px]">
+          {donationQRPopUp && <DonationQRPopUp setDonationQRPopUp={setDonationQRPopUp} />}
+          <a href="upi://pay?pa=prathampatankar1234@oksbi&pn=prathampatankar&tn=Donation&cu=INR" onMouseEnter={()=>setDonationQRPopUp(true)} onMouseLeave={()=>setDonationQRPopUp(false)}  className="bg-mivCol text-black px-[12px] py-[6px] flex items-center justify-center rounded-[50px]">
             {translateToMarathi ? "डोनेट करा" : "Donate"}
             <span>❤️</span>
-          </button>
+          </a>
           <a
             href="https://discord.gg/eKvZxeQRND"
             className="border-[#5865F2] text-[#5865F2] border-[2px] px-[12px] py-[6px] rounded-[50px] flex flex-row gap-2 items-center"
