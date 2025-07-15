@@ -205,11 +205,11 @@ const Artifacts = ({ translateToMarathi }) => {
       </div>
       {loading ? (<Loading />) : (
         <>
-      {artifacts.map((artifact) => {
-        isSelected = selectedArtifact === artifact.artifactID;
+      {Array.isArray(artifacts) && artifacts?.map((artifact) => {
+        isSelected = selectedArtifact === artifact?.artifactID;
         return (
             <CardContainer
-              key={artifact.artifactID}
+              key={artifact?.artifactID}
               className={`inter-var ${
                 isSelected ? "lg:w-[1200px] w-full flex-row" : "w-fit flex-col"
               } mx-4 lg:mx-0 h-fit flex items-center lg:items-start gap-2 gap-y-2 bg-[#1A1A1A] p-4 rounded-[12px] text-white text-4 font-medium`}
@@ -226,12 +226,12 @@ const Artifacts = ({ translateToMarathi }) => {
                 >
                   <img
                     className="rounded-[12px]"
-                    src={artifact.artifactImage}
+                    src={artifact?.artifactImage}
                     alt="made in vikrholi"
                   />
                   
                   <div className="absolute top-4 right-4 w-fit px-2 py-1 border-white text-white border-[2px] rounded-[20px]">
-                    {artifact.artifactTag}
+                    {artifact?.artifactTag}
                   </div>
                 </CardItem>
               ) : (
@@ -242,11 +242,11 @@ const Artifacts = ({ translateToMarathi }) => {
                   <div className="bg-black flex flex-row items-center justify-center relative rounded-[12px]">
                     <img
                       className="rounded-[12px]"
-                      src={artifact.artifactImage}
+                      src={artifact?.artifactImage}
                       alt="made in vikrholi"
                     />
                     <div className="absolute top-4 right-4 w-fit px-2 py-1 border-white text-white border-[2px] rounded-[20px]">
-                      {artifact.artifactTag}
+                      {artifact?.artifactTag}
                     </div>
                   </div>
                 </CardItem>
@@ -265,26 +265,26 @@ const Artifacts = ({ translateToMarathi }) => {
                   >
                     <img
                       className="rounded-[12px]"
-                      src={artifact.artifactImage}
+                      src={artifact?.artifactImage}
                       alt="made in vikrholi"
                     />
                     <div className="absolute top-4 right-4 w-fit px-2 py-1 border-white text-white border-[2px] rounded-[20px]">
-                      {artifact.artifactTag}
+                      {artifact?.artifactTag}
                     </div>
                   </div>
                   <div className="w-full flex flex-row justify-between relative">
                     <div className="flex flex-col gap-2">
                       <div className="flex flex-row gap-2 text-wrap">
-                        <div className="">{artifact.artifactTitle}</div>
+                        <div className="">{artifact?.artifactTitle}</div>
                         <div className="text-[#808080]">
-                          by {artifact.artifactBy}
+                          by {artifact?.artifactBy}
                         </div>
                       </div>
                     </div>
-                    <div>{artifact.artifactPrice}₹</div>
+                    <div>{artifact?.artifactPrice}₹</div>
                   </div>
                   <div className="text-[14px] w-full">
-                    {artifact.artifactDescription}
+                    {artifact?.artifactDescription}
                   </div>
                   <div
                     onChange={(e) => setIsAgreed(e.target.checked)}
