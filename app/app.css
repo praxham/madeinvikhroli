@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans:
+    "Poppins", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+:root {
+  /* size */
+  --website-horizontal-size: 1240px;
+
+  /* colors */
+  --clr-site-backrgound: #faf5ef;
+  --clr-primary: #ffbb00;
+  --clr-secondary: #034200;
+  --clr-background-one: #e3ded9;
+  --clr-grey-one: #333333;
+
+  /* radius */
+  --corner-radius: 10px;
+}
+
+html,
+body {
+  /* @apply bg-white dark:bg-gray-950;
+
+  @media (prefers-color-scheme: dark) {
+    color-scheme: dark;
+  } */
+}
+
+.secondary_clr_text {
+  color: var(--clr-secondary);
+}
+
+.display-font {
+  font-family: "Bakbak One", sans-serif;
+}
