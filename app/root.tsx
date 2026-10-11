@@ -11,7 +11,6 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import Navbar from "./components/common/navbar";
 import Footer from "./components/common/footer";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import NavigationProgressBar from "./components/common/navigationProgressBar";
 import { ToastContainer, Bounce } from "react-toastify";
 
@@ -69,14 +68,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-const queryClient = new QueryClient();
-
 export default function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Outlet />
-    </QueryClientProvider>
-  );
+  return <Outlet />;
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
