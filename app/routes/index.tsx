@@ -6,12 +6,26 @@ import { CACHE_TTL } from "~/constatns";
 import { apiClient } from "~/api/axios";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "Made In Vikhorli";
+  const description =
+    "A creative collective and marketplace for buying and selling art, websites & tech services from Vikhroli.";
+  const image =
+    "https://assets.madeinvikhroli.com/website-assets/miv-website-preview.png";
   return [
-    { title: "Made In Vikhorli" },
+    { title: title },
     {
       name: "description",
-      content: "We’re a collective making art, websites & everything tech",
+      content: description,
     },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: image },
+    { property: "og:type", content: "website" },
+
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: image },
   ];
 }
 

@@ -1,5 +1,5 @@
 import { type DetailedArtifact } from "~/types/common";
-import { QRCodeCanvas, QRCodeSVG } from "qrcode.react";
+import { QRCodeCanvas } from "qrcode.react";
 import { useRef, useState } from "react";
 import StyledButton from "../common/styledButton";
 import z from "zod";
