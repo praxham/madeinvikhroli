@@ -12,10 +12,15 @@
 
   /* colors */
   --clr-site-backrgound: #faf5ef;
-  --clr-primary: #ffbb00;
-  --clr-secondary: #034200;
+  --clr-primary: #632828;
+  --clr-danger: #b23636;
   --clr-background-one: #e3ded9;
   --clr-grey-one: #333333;
+  --clr-grey-two: #4d4d4d;
+  --clr-grey-three: #808080;
+
+  --clr-border-grey-one: #e6e6e6;
+  --clr-border-grey-two: #e5e5e5;
 
   /* radius */
   --corner-radius: 10px;
@@ -30,10 +35,15 @@ body {
   } */
 }
 
-.secondary_clr_text {
-  color: var(--clr-secondary);
-}
-
 .display-font {
   font-family: "Bakbak One", sans-serif;
+}
+
+.heading1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.heading2 {
+  font-size: 1rem;
+  font-weight: 500;
 }

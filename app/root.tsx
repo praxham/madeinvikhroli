@@ -11,8 +11,12 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import Navbar from "./components/common/navbar";
 import Footer from "./components/common/footer";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import NavigationProgressBar from "./components/common/navigationProgressBar";
+import { ToastContainer, Bounce } from "react-toastify";
 
 export const links: Route.LinksFunction = () => [
+  { rel: "icon", href: "/favicon.ico" },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",
@@ -38,11 +42,25 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="bg-[var(--clr-site-backrgound)] mt-[36px]">
-        <div className="max-w-[1240px] mx-auto">
+      <body className="bg-[var(--clr-site-backrgound)]">
+        <NavigationProgressBar />
+        <div className="max-w-[1240px] mx-auto mt-[36px]">
           <Navbar />
-          <div className="min-h-screen">{children}</div>
+          <div className="h-[cacl(100vh-76px)] px-4 lg:px-0">{children}</div>
         </div>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          transition={Bounce}
+        />
         <Footer />
         <ScrollRestoration />
         <Scripts />
@@ -51,8 +69,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+const queryClient = new QueryClient();
+
 export default function App() {
-  return <Outlet />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Outlet />
+    </QueryClientProvider>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
