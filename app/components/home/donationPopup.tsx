@@ -73,6 +73,7 @@ const DonationPopup = ({ handleClose }: { handleClose: () => void }) => {
           </div>
         </div>
         <QRCodeCanvas
+          ref={qrRef}
           value={UPIPaymentURL}
           level="H"
           size={500}
