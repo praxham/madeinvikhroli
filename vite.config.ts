@@ -6,8 +6,4 @@ import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths(), svgr()],
-  server: {
-    host: true,
-    allowedHosts: ["795f-152-58-28-192.ngrok-free.app"],
-  },
 });
