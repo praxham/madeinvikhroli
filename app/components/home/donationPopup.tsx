@@ -72,12 +72,14 @@ const DonationPopup = ({ handleClose }: { handleClose: () => void }) => {
             ))}
           </div>
         </div>
-        <QRCodeCanvas
-          value={UPIPaymentURL}
-          level="H"
-          size={500}
-          style={{ width: "100%", height: "auto", maxWidth: "250px" }}
-        />
+        <div ref={qrRef} className="flex justify-center w-full">
+          <QRCodeCanvas
+            value={UPIPaymentURL}
+            level="H"
+            size={500}
+            style={{ width: "100%", height: "auto", maxWidth: "250px" }}
+          />
+        </div>
         <label className="w-full font-medium hidden md:block">
           Scan and Pay via any UPI app
         </label>
