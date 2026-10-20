@@ -100,7 +100,7 @@ const Footer = () => {
   );
 };
 
-const logOut = async ({
+export const logOut = async ({
   removeUser,
   removeArtist,
 }: {
