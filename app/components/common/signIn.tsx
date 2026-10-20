@@ -18,6 +18,7 @@ const SignIn = ({ handleClose }: { handleClose: () => void }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const addUser = useUserStore((state) => state.addUser);
+  const isArtifactRoute = window.location.toString().includes("artifacts/");
 
   return (
     <div className="fixed w-screen h-screen text-[1rem] font-normal">
@@ -41,7 +42,9 @@ const SignIn = ({ handleClose }: { handleClose: () => void }) => {
                 setLoading,
                 handleClose,
                 addUser,
-                redirect: "/artifacts/vibrant-queen?purchase=true",
+                redirect: isArtifactRoute
+                  ? "/artifacts/vibrant-queen?purchase=true"
+                  : undefined,
               })
             }
             className="flex flex-col items-center gap-2 mt-4"
