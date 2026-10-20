@@ -21,7 +21,7 @@ const DialogueBox = ({
         onClick={handleClose}
         className="fixed top-0 left-0 w-screen h-screen bg-black/50"
       />
-      <div className="fixed w-[calc(100vw-2rem)] lg:min-w-[500px] max-w-[600px] min-h-[200px] top-[50%] left-[50%] transform-[translate(-50%,-50%)] rounded-[var(--corner-radius)] p-4 flex flex-col items-center gap-2 bg-white text-black border-[var(--clr-border-grey-one)] border-[1px]">
+      <div className="fixed w-[calc(100vw-2rem)] lg:w-[500px] max-w-[600px] min-h-[200px] top-[50%] left-[50%] transform-[translate(-50%,-50%)] rounded-[var(--corner-radius)] p-4 flex flex-col items-center gap-2 bg-white text-black border-[var(--clr-border-grey-one)] border-[1px]">
         <h1 className="heading1 w-full">{title}</h1>
         <span className="font-medium text-[var(--clr-grey-two)] w-full">
           {subtitle}
