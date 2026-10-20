@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   NavLink,
   Outlet,
@@ -6,8 +7,10 @@ import {
   type ActionFunctionArgs,
 } from "react-router";
 import { apiClient } from "~/api/axios";
+import DialogueBox from "~/components/common/dialogueBox";
+import { logOut } from "~/components/common/footer";
 import { getServerCookieData } from "~/functions";
-import { useUserStore } from "~/store";
+import { useArtistStore, useUserStore } from "~/store";
 
 export const loader = async ({ request }: { request: Request }) => {
   const token = getServerCookieData(request, "authToken");
@@ -85,6 +88,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 const Layout = () => {
   const role = useUserStore((state) => state.user?.role);
   const location = useLocation();
+  const [showLogOutConfirmation, setShowLogOutConfirmation] = useState(false);
+  const removeUser = useUserStore((state) => state.removeUser);
+  const removeArtistStore = useArtistStore((state) => state.removeArtist);
+  const removeArtist = role === "seller" ? removeArtistStore : null;
 
   const routesToRender =
     role === "seller"
@@ -139,7 +146,12 @@ const Layout = () => {
             {route.name}
           </NavLink>
         ))}
-        <button className="text-start mt-auto">Log Out</button>
+        <button
+          className="text-start mt-auto cursor-pointer"
+          onClick={() => setShowLogOutConfirmation(true)}
+        >
+          Log Out
+        </button>
       </div>
       <div className="bg-white p-4 rounded-[var(--corner-radius)] ">
         <div className="flex flex-row gap-2">
@@ -156,6 +168,18 @@ const Layout = () => {
 
         <Outlet />
       </div>
+      {showLogOutConfirmation && (
+        <DialogueBox
+          title="Log Out"
+          subtitle="are you sure want to log out?"
+          handleClose={() => setShowLogOutConfirmation(false)}
+          confirmFunction={() => {
+            setShowLogOutConfirmation(false);
+            logOut({ removeUser, removeArtist });
+            window.location.replace("/");
+          }}
+        />
+      )}
     </div>
   );
 };
