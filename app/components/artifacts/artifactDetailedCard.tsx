@@ -2,10 +2,9 @@ import type { DetailedArtifact, GridArtifact } from "~/types/common";
 import ArtifactImagePreview from "./artifactImagePreview";
 import StyledButton from "../common/styledButton";
 import { Link, useSearchParams } from "react-router";
-import PurchasePopup from "../purchase/purchasePoup";
 import { useUserStore } from "~/store";
 import ArtifactsGrid from "./artifactsGrid";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { apiClient } from "~/api/axios";
 
@@ -17,9 +16,86 @@ const ArtifactDetailedCard = ({
   artifactsOfMember: GridArtifact[];
 }) => {
   const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+  const upiId = useUserStore((state) => state.user?.upiId);
   const [isDownloading, setIsDownloading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const showPurchasePopup = JSON.parse(searchParams.get("purchase") || "false");
+  const [isPaymentLinkLoading, setIsPaymentLinkLoading] = useState(false);
+
+  const triggerMivPay = useCallback(async () => {
+    setIsPaymentLinkLoading(true);
+    try {
+      const contactType = artifact.artist.whatsapp_number
+        ? "whatsapp"
+        : "email";
+      const contactInfo =
+        contactType === "whatsapp"
+          ? artifact.artist.whatsapp_number
+          : artifact.artist.email_id;
+      const paymentLinkBody = {
+        pa: artifact.artist.upi_id,
+        am: artifact.amount,
+        tn: "Purchasing " + artifact.title,
+        ct: contactType,
+        ci: contactInfo,
+        ra: upiId,
+        vurl: `https://madeinvikhroli.com/profile/received-orders`,
+      };
+      const mivPayResponse = await fetch(
+        "https://miv-pay.vercel.app/api/generate-link",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(paymentLinkBody),
+        },
+      );
+      const result = await mivPayResponse.json();
+      const link = result.data.link;
+      if (result.success && link) {
+        window.open(link, "_blank");
+      }
+    } catch (error) {
+      console.error("Failed to create miv-pay payment link", error);
+    } finally {
+      setIsPaymentLinkLoading(false);
+    }
+  }, [artifact, upiId]);
+
+  interface MivPayPayload {
+    status: string;
+    utr: string;
+  }
+
+  useEffect(() => {
+    const handleTabMessage = async (event: MessageEvent<MivPayPayload>) => {
+      const allowedOrigins = ["https://miv-pay.vercel.app"];
+
+      if (!allowedOrigins.includes(event.origin)) {
+        console.warn("Blocked message from unauthorized origin:", event.origin);
+        return;
+      }
+
+      const data = event.data;
+
+      try {
+        const orderApiResponse = await apiClient.post("/order/", {
+          artifact: artifact.id,
+          amount: artifact.amount,
+          utr: data.utr,
+        });
+
+        if (orderApiResponse.status === 201 && orderApiResponse.data.success) {
+          toast.success("Order created successfully!");
+        }
+      } catch (error) {
+        console.error("Failed to create order", error);
+      }
+    };
+    window.addEventListener("message", handleTabMessage);
+    return () => window.removeEventListener("message", handleTabMessage);
+  }, [artifact]);
+
   return (
     <div className="h-fit grid grid-cols-1 lg:grid-cols-2 gap-x-[20px] gap-y-[1rem] lg:gap-y-[2.25rem]">
       {/* left side */}
@@ -62,7 +138,7 @@ const ArtifactDetailedCard = ({
             title={`Buy Now for ₹${artifact.amount}`}
             action={() => {
               if (isLoggedIn) {
-                setSearchParams({ purchase: "true" });
+                triggerMivPay();
               } else {
                 setSearchParams({ sign_in: "true", get_upi: "true" });
               }
@@ -70,6 +146,7 @@ const ArtifactDetailedCard = ({
             heirarchy="primary"
             length="full-width"
             style={{ marginTop: "auto" }}
+            isLoading={isPaymentLinkLoading}
           />
         )}
 
@@ -77,7 +154,7 @@ const ArtifactDetailedCard = ({
           artifact.deliverable_file_formats?.length > 0 && (
             <StyledButton
               title="Download"
-              action={() => getFreeArtifact(artifact?.id)}
+              action={() => getFreeArtifact(artifact?.id, setIsDownloading)}
               heirarchy="primary"
               length="full-width"
               isLoading={isDownloading}
@@ -85,18 +162,6 @@ const ArtifactDetailedCard = ({
             />
           )}
       </div>
-      {/* </div> */}
-      {showPurchasePopup && (
-        <PurchasePopup
-          handleClose={() =>
-            setSearchParams((prevParams) => {
-              prevParams.delete("purchase");
-              return prevParams;
-            })
-          }
-          artifact={artifact}
-        />
-      )}
       <div className="col-span-2">
         <h1 className="heading1 mb-[1.5rem]">
           More from{" "}
@@ -114,12 +179,16 @@ const ArtifactDetailedCard = ({
   );
 };
 
-const getFreeArtifact = async (id: string) => {
+const getFreeArtifact = async (
+  id: string,
+  setIsDownloading: (val: boolean) => void,
+) => {
   if (!id) {
     return toast.error(
       "id is required to fetch free artifact's deliverable content",
     );
   }
+  setIsDownloading(true);
   try {
     const response = await apiClient.get(`/artifact/free?id=${id}`);
 
@@ -128,6 +197,8 @@ const getFreeArtifact = async (id: string) => {
     }
   } catch (error: any) {
     toast.error(error);
+  } finally {
+    setIsDownloading(false);
   }
 };
 
