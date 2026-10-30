@@ -1,13 +1,43 @@
 import StyledButton from "../common/styledButton";
 import Carousal from "./carousal";
-import { useNavigate, useSearchParams } from "react-router";
+import { useNavigate } from "react-router";
 import type { HomePageArtifact } from "~/types/common";
-import DonationPopup from "./donationPopup";
+import { useState } from "react";
 
 const Hero = ({ artifacts }: { artifacts: HomePageArtifact[] }) => {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const showDonatePopup = JSON.parse(searchParams.get("donate") || "false");
+  const [isDonatePaymentLinkLoading, setIsDonatePaymentLinkLoading] =
+    useState(false);
+
+  const triggerMivPayDonate = async (amount: number) => {
+    setIsDonatePaymentLinkLoading(true);
+    try {
+      const paymentLinkBody = {
+        pa: import.meta.env.VITE_ADMIN_UPI_ID,
+        am: amount,
+        tn: "Donating to Made In Vikhroli",
+      };
+      const mivPayResponse = await fetch(
+        "https://miv-pay.vercel.app/api/generate-link",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(paymentLinkBody),
+        },
+      );
+      const result = await mivPayResponse.json();
+      const link = result.data.link;
+      if (result.success && link) {
+        window.open(link, "_blank");
+      }
+    } catch (error) {
+      console.error("Failed to create miv-pay donate link", error);
+    } finally {
+      setIsDonatePaymentLinkLoading(false);
+    }
+  };
   return (
     <div className="relative h-[90vh] flex flex-col gap-4 items-center justify-center px-4 lg:px-0">
       <Carousal artifacts={artifacts} />
@@ -29,8 +59,10 @@ const Hero = ({ artifacts }: { artifacts: HomePageArtifact[] }) => {
         <div className="flex flex-row gap-4">
           <StyledButton
             title="Donate"
-            action={() => setSearchParams({ donate: "true" })}
+            action={() => triggerMivPayDonate(50)}
             heirarchy="primary"
+            isLoading={isDonatePaymentLinkLoading}
+            style={{ width: "91.16px" }}
           />
           <StyledButton
             title="View Artifacts"
@@ -39,16 +71,6 @@ const Hero = ({ artifacts }: { artifacts: HomePageArtifact[] }) => {
           />
         </div>
       </div>
-      {showDonatePopup && (
-        <DonationPopup
-          handleClose={() =>
-            setSearchParams((prevParams) => {
-              prevParams.delete("donate");
-              return prevParams;
-            })
-          }
-        />
-      )}
     </div>
   );
 };
