@@ -12,11 +12,10 @@ import { getServerCookieData } from "~/functions";
 export const loader = async ({ request }: { request: Request }) => {
   const { searchParams } = new URL(request.url);
   const page = parseInt(searchParams.get("page") || "1", 10);
-  const id = searchParams.get("id");
   const limit = 12;
   const token = getServerCookieData(request, "authToken");
 
-  const orders = await getOrders({ token, id, page, limit });
+  const orders = await getOrders({ token, id: null, page, limit });
 
   return { orders: orders || [], page, limit };
 };
@@ -30,11 +29,13 @@ const ReceivedOrders = () => {
     return <NoContent title="Orders" />;
   }
 
-  const orderId = searchParams.get("id");
+  const UTRFromSearchparams = searchParams.get("utr");
 
   const selectedOrder = orders.find(
-    (order: { id: string }) => order.id === orderId,
+    (order: { utr: string }) => order.utr === UTRFromSearchparams,
   );
+
+  const orderId = selectedOrder?.id;
 
   const handleSubmit = (paymentStatus: "confirmed" | "rejected") => {
     if (!orderId) return;

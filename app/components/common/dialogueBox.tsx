@@ -23,7 +23,7 @@ const DialogueBox = ({
       />
       <div className="fixed w-[calc(100vw-2rem)] lg:w-[500px] max-w-[600px] min-h-[200px] top-[50%] left-[50%] transform-[translate(-50%,-50%)] rounded-[var(--corner-radius)] p-4 flex flex-col items-center gap-2 bg-white text-black border-[var(--clr-border-grey-one)] border-[1px]">
         <h1 className="heading1 w-full">{title}</h1>
-        <span className="font-medium text-[var(--clr-grey-two)] w-full">
+        <span className="font-normal text-[var(--clr-grey-two)] w-full mb-4">
           {subtitle}
         </span>
         {isLoading ? (
@@ -147,7 +147,9 @@ const DialogueBox = ({
               length="full-width"
               heirarchy="primary"
               style={{
-                backgroundColor: rejectFunction ? "dont-change" : "#b23636",
+                backgroundColor: rejectFunction
+                  ? "var(--color-green-800)"
+                  : "#b23636",
                 color: rejectFunction ? "dont-change" : "white",
               }}
             />
