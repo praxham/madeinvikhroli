@@ -1,10 +1,7 @@
-import { Link, NavLink, useSearchParams } from "react-router";
-import VikhrolitNirmitText from "../../assets/footer/vikhrolit-nirmit-text.svg?react";
-import SignIn from "./signIn";
+import { NavLink, useSearchParams } from "react-router";
 import { useArtistStore, useUserStore } from "~/store";
 import { deleteCookieData } from "~/functions";
 import { useState } from "react";
-import DialogueBox from "./dialogueBox";
 
 const Footer = () => {
   const isLoggedIn = useUserStore((state) => state.isLoggedIn);
@@ -21,80 +18,12 @@ const Footer = () => {
   };
 
   return (
-    <div className="bg-black text-white px-4 py-16 lg:px-0">
-      <div className="max-w-[var(--website-horizontal-size)] mx-auto">
-        <div className="grid grid-cols-2 w-full gap-4 text-[1.2rem] md:text-[1.5rem] font-semibold items-start">
-          <div className="grid grid-cols-1 gap-[19px]">
-            <NavLink
-              to="/artifacts"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-[var(--clr-primary)]"
-                  : "text-[var(--clr-grey-three)]"
-              }
-            >
-              Artifacts
-            </NavLink>
-            <NavLink
-              to="/members"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-[var(--clr-primary)]"
-                  : "text-[var(--clr-grey-three)]"
-              }
-            >
-              Members
-            </NavLink>
-            {!isLoggedIn && (
-              <button
-                className={`w-fit cursor-pointer ${isSignInOpen ? "text-[var(--clr-primary)]" : "text-[var(--clr-grey-three)]"}`}
-                onClick={() => setSearchParams({ sign_in: "true" })}
-              >
-                Sign In
-              </button>
-            )}
-            {isLoggedIn && (
-              <button
-                className="w-fit cursor-pointer text-[var(--clr-grey-three)]"
-                onClick={() => setShowLogOutConfirmation(true)}
-              >
-                Log Out
-              </button>
-            )}
-          </div>
-          {isSignInOpen && <SignIn handleClose={handleClose} />}
-          {showLogOutConfirmation && (
-            <DialogueBox
-              title="Log Out"
-              subtitle="are you sure want to log out?"
-              handleClose={() => setShowLogOutConfirmation(false)}
-              confirmFunction={() => {
-                setShowLogOutConfirmation(false);
-                logOut({ removeUser, removeArtist });
-                window.location.replace("/");
-              }}
-            />
-          )}
-          <div className="grid grid-cols-1 gap-[19px]">
-            <NavLink
-              to="/terms-n-conditions"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-[var(--clr-primary)]"
-                  : "text-[var(--clr-grey-three)]"
-              }
-            >
-              Terms & Conditions
-            </NavLink>
-            <a
-              href="https://github.com/praxham/madeinvikhroli/issues"
-              className="text-[var(--clr-grey-three)]"
-            >
-              Report Bug
-            </a>
-          </div>
-        </div>
-        <VikhrolitNirmitText className="w-full h-auto mt-[64px]" />
+    <div className="bg-[#E6E6E6] text-black px-4 py-1 bottom-0 right-0 text-[12px]">
+      <div className="max-w-(--website-horizontal-size) mx-auto flex flex-row gap-4">
+        <NavLink to="/terms-n-conditions">Terms & Conditions</NavLink>
+        <a href="https://github.com/praxham/madeinvikhroli/issues">
+          Report Bug
+        </a>
       </div>
     </div>
   );

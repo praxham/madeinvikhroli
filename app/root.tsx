@@ -24,11 +24,7 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap",
-  },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Bakbak+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap",
   },
 ];
 
@@ -43,7 +39,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className="bg-[var(--clr-site-backrgound)]">
         <NavigationProgressBar />
-        <div className="max-w-[1240px] mx-auto mt-[36px]">
+        <div className="max-w-[1240px] mx-auto min-h-[calc(100vh-26px)] pt-[calc(36px+40px+16px)] md:pt-[calc(36px+40px+24px)]">
           <Navbar />
           <div className="h-[cacl(100vh-76px)] px-4 lg:px-0">{children}</div>
         </div>

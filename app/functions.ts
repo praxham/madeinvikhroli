@@ -21,3 +21,15 @@ export const getServerCookieData = (request: Request, key: string) => {
   const cookie = cookies.find((row) => row.startsWith(key + "="));
   return cookie ? cookie.split("=")[1] : null;
 };
+
+export const generateMailToLink = ({
+  emailId,
+  subject,
+  body,
+}: {
+  emailId: string;
+  subject: string;
+  body: string;
+}) => {
+  return `mailto:${emailId}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+};
