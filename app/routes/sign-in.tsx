@@ -1,14 +1,15 @@
 import z from "zod";
-import StyledButton from "./styledButton";
 import { useState, type FormEvent } from "react";
 import { apiClient } from "~/api/axios";
 import { useUserStore } from "~/store";
 import type { User } from "~/types/common";
 import { useNavigate, useSearchParams } from "react-router";
 import { toast } from "react-toastify";
-import { UPI_REGEX, upiIdSchema } from "./addUPI";
+import StyledButton from "~/components/common/styledButton";
+import { UPI_REGEX, upiIdSchema } from "~/components/common/addUPI";
+import vikhroliLandscape from "./../assets/sign-in/vikhroli-landscape.jpg";
 
-const SignIn = ({ handleClose }: { handleClose: () => void }) => {
+const SignIn = () => {
   const [email, setEmail] = useState("");
   const [upiId, setUpiId] = useState("");
   const [otp, setOTP] = useState("");
@@ -18,17 +19,11 @@ const SignIn = ({ handleClose }: { handleClose: () => void }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const addUser = useUserStore((state) => state.addUser);
-  const isArtifactRoute = window.location.toString().includes("artifacts/");
 
   return (
-    <div className="fixed w-screen h-screen text-[1rem] font-normal">
-      <div
-        onClick={handleClose}
-        className="fixed top-0 left-0 w-screen h-screen bg-black/50"
-      />
-
-      <div className="fixed w-[calc(100vw-2rem)] lg:w-[500px] top-[50%] left-[50%] transform-[translate(-50%,-50%)] rounded-[var(--corner-radius)] p-4 bg-white text-black border-[var(--clr-border-grey-one)] border-[1px]">
-        <h1 className="heading1">Sign In</h1>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-4 rounded-(--corner-radius)">
+      <div className="max-md:order-2 h-fit self-center rounded-[var(--corner-radius)] md:pr-12 md:pl-[32px] text-black">
+        <h1 className="heading1 text-[2rem]">Sign In</h1>
         <h2 className="heading2 text-[var(--clr-grey-one)] mt-1">
           Sign in or create an account
         </h2>
@@ -40,11 +35,8 @@ const SignIn = ({ handleClose }: { handleClose: () => void }) => {
                 otp,
                 e,
                 setLoading,
-                handleClose,
                 addUser,
-                redirect: isArtifactRoute
-                  ? "/artifacts/vibrant-queen?purchase=true"
-                  : undefined,
+                navigate,
               })
             }
             className="flex flex-col items-center gap-2 mt-4"
@@ -139,9 +131,16 @@ const SignIn = ({ handleClose }: { handleClose: () => void }) => {
           By continuing, you agree to our <u>Terms of Service</u>
         </p>
       </div>
+      <img
+        src={vikhroliLandscape}
+        className="rounded-(--corner-radius) max-md:aspect-[2/1] object-cover object-bottom max-md:order-1"
+        alt="vikhroli-landscape"
+      />
     </div>
   );
 };
+
+export default SignIn;
 
 const emailSchema = z.email();
 const otpSchema = z
@@ -195,17 +194,15 @@ const otpSubmit = async ({
   otp,
   e,
   setLoading,
-  handleClose,
   addUser,
-  redirect,
+  navigate,
 }: {
   email: string;
   otp: string;
   e: FormEvent;
   setLoading: (value: boolean) => void;
-  handleClose: () => void;
   addUser: (user: User) => void;
-  redirect?: string;
+  navigate: (val: string) => void;
 }) => {
   e.preventDefault();
 
@@ -228,8 +225,7 @@ const otpSubmit = async ({
       document.cookie = `authToken=${token}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
       addUser(user);
       toast.success("Successfully Logged In!");
-      redirect && (window.location.href = redirect);
-      handleClose();
+      navigate("/profile");
     } else {
       toast.error(`Something Went Wrong!, error: ${response.data.message}`);
       console.error("Invalid OTP", response);
@@ -240,5 +236,3 @@ const otpSubmit = async ({
     setLoading(false);
   }
 };
-
-export default SignIn;

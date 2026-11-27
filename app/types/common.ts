@@ -1,10 +1,12 @@
 import type { ButtonHTMLAttributes } from "react";
-export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface IStyledButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
   action: () => void;
   heirarchy: "primary" | "secondary";
   length?: "full-width";
   isLoading?: boolean;
+  mode?: "link" | "button";
+  url?: string;
 }
 
 export interface IApiResponse {

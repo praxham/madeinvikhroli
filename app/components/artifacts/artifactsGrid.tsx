@@ -17,7 +17,7 @@ const ArtifactsGrid = ({
   const [searchParams, setSearchParams] = useSearchParams();
   return (
     <div className="flex flex-col gap-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-1 gap-y-[30px]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1">
         {artifacts.slice(0, limit).map((artifact, i) => (
           <ArtifactGridCard key={i} artifact={artifact} />
         ))}

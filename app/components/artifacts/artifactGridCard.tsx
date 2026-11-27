@@ -37,7 +37,7 @@ const ArtifactGridCard = ({ artifact }: { artifact: GridArtifact }) => {
       key={artifact.id}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
-      className="group relative flex flex-col gap-2 cursor-pointer"
+      className="group flex flex-col gap-2 cursor-pointer bg-white aspect-square"
       onClick={() =>
         navigate(
           isDeleteable
@@ -110,25 +110,22 @@ const ArtifactGridCard = ({ artifact }: { artifact: GridArtifact }) => {
         </div>
       )}
       <img
-        className="w-full lg:w-[413.33px] aspect-square object-cover"
+        className="w-full lg:w-[413.33px] aspect-square object-cover p-20 bg-white"
         src={artifact.images[currentIndex]}
       />
 
-      {/* Details Container */}
-      <div className="flex flex-col gap-2">
-        {/* Top Row: Title and Artist side-by-side */}
+      <div className="lg:hidden flex lg:group-hover:flex w-full flex-row justify-between gap-4 mt-[-48px] p-2 line-clamp-1">
         <div className="flex gap-2 items-baseline">
-          <h1 className="heading2">{artifact.title}</h1>
+          <h1 className="heading2 line-clamp-1">{artifact.title}</h1>
           {!renderingForArtist && (
-            <h2 className="heading2 text-[var(--clr-grey-two)]">
+            <h2 className="heading2 text-[var(--clr-grey-two)] line-clamp-1 truncate whitespace-nowrap">
               by {artifact.by_artist}
             </h2>
           )}
         </div>
 
-        {/* Bottom Row: Price */}
         {artifact.amount > 0 && (
-          <h2 className="heading2 text-[var(--clr-grey-two)]">
+          <h2 className="heading2 text-[var(--clr-grey-two)] whitespace-nowrap">
             ₹ {artifact.amount}
           </h2>
         )}

@@ -104,13 +104,13 @@ const ArtifactDetailedCard = ({
       <div className="col-span-2 lg:col-span-1 w-full flex flex-col gap-2 bg-white p-4 font-medium rounded-[var(--corner-radius)]">
         <h1 className="text-[1.5rem]">{artifact.title}</h1>
         <Link to={`/members/${artifact.artist.username}`}>
-          <h2 className="text-[var(--clr-grey-two)]">
+          <h2 className="text-[var(--clr-grey-two)] max-md:underline md:hover:underline">
             by {artifact.artist.username}
           </h2>
         </Link>
         <div className="flex flex-row gap-2">
           {artifact.category.map((item) => (
-            <h3 className="mt-1 text-[var(--clr-grey-three)] border-2 border-[var(--clr-grey-three)] w-fit px-[1rem] py-[6px] rounded-full">
+            <h3 className="mt-1 text-[0.87rem] text-[var(--clr-grey-three)] border-1 border-[var(--clr-grey-three)] w-fit px-2 py-1 rounded-full">
               {item}
             </h3>
           ))}

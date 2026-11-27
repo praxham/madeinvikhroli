@@ -11,8 +11,8 @@
   --website-horizontal-size: 1240px;
 
   /* colors */
-  --clr-site-backrgound: #faf5ef;
-  --clr-primary: #632828;
+  --clr-site-backrgound: #f8f8f7;
+  --clr-primary: #040080;
   --clr-danger: #b23636;
   --clr-background-one: #e3ded9;
   --clr-grey-one: #333333;
@@ -39,11 +39,44 @@ body {
   font-family: "Bakbak One", sans-serif;
 }
 
-.heading1 {
-  font-size: 1.5rem;
-  font-weight: 500;
+@layer components {
+  .heading1 {
+    /* font-family: "Funnel Display", sans-serif; */
+    font-size: 2rem;
+    font-weight: 600;
+  }
 }
+
 .heading2 {
   font-size: 1rem;
   font-weight: 500;
+}
+
+.link {
+  color: LinkText;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link:visited {
+  color: VisitedText;
+}
+
+.link:active {
+  color: ActiveText;
+}
+
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-text-change {
+  animation: fadeSlideUp 0.3s ease-in-out;
 }

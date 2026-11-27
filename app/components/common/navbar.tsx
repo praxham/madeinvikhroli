@@ -67,163 +67,196 @@ const Navbar = () => {
   }, [role]);
 
   return (
-    <div className="flex flex-row gap-4 justify-between items-center px-4 lg:px-0">
-      <Link to="/">
-        <img src="/assets/common/miv-logo-horizontal.webp" alt="MIV Logo" />
-      </Link>
+    <div className="absolute top-0 left-0 w-screen px-4 mt-[36px] lg:px-0 z-40">
+      <div className="w-full max-w-(--website-horizontal-size) mx-auto flex flex-row gap-4 justify-between items-center">
+        <Link to="/">
+          <img src="/assets/common/miv-logo-horizontal.webp" alt="MIV Logo" />
+        </Link>
 
-      <div className="bg-[var(--clr-background-one)] hidden md:flex flex-row items-center gap-6 py-2 px-4 rounded-[var(--corner-radius)] font-medium">
-        <NavLink
-          to="/artifacts"
-          className={({ isActive }) =>
-            isActive
-              ? "text-[var(--clr-primary)]"
-              : "text-[var(--clr-grey-one)]"
-          }
-        >
-          Artifacts
-        </NavLink>
-        <NavLink
-          to="/members"
-          className={({ isActive }) =>
-            isActive
-              ? "text-[var(--clr-primary)]"
-              : "text-[var(--clr-grey-one)]"
-          }
-        >
-          Members
-        </NavLink>
-        {isLoggedIn && (
-          <NavLink to="/profile" className="cursor-pointer">
-            {role === "seller" ? (
-              <img
-                className="w-[32px] aspect-square rounded-full"
-                src={profilePhoto}
-              />
-            ) : (
-              <UserProfileIcon />
-            )}
-          </NavLink>
-        )}
-      </div>
-      <input type="checkbox" id="sidebar-toggle" className="peer hidden" />
-      <div className="flex flex-row items-center gap-2 md:hidden">
-        {isLoggedIn && (
-          <NavLink to="/profile" className="cursor-pointer">
-            {role === "seller" ? (
-              <img
-                className="w-[32px] aspect-square rounded-full"
-                src={profilePhoto}
-              />
-            ) : (
-              <UserProfileIcon />
-            )}
-          </NavLink>
-        )}
-        <label htmlFor="sidebar-toggle" className="cursor-pointer">
-          <svg
-            width="24px"
-            height="24px"
-            viewBox="-0.5 0 25 25"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g
-              id="SVGRepo_tracerCarrier"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></g>
-            <g id="SVGRepo_iconCarrier">
-              {" "}
-              <path
-                d="M2 12.32H22"
-                stroke="#000000"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>{" "}
-              <path
-                d="M2 18.32H22"
-                stroke="#000000"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>{" "}
-              <path
-                d="M2 6.32001H22"
-                stroke="#000000"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>{" "}
-            </g>
-          </svg>
-        </label>
-      </div>
-
-      <div className="flex md:hidden flex-col h-screen bg-black w-64 fixed top-0 right-0 pt-16 px-6 gap-8 font-medium z-50 shadow-2xl transform translate-x-full peer-checked:translate-x-0 transition-transform duration-300 ease-in-out">
-        <label
-          htmlFor="sidebar-toggle"
-          className="absolute top-5 right-5 cursor-pointer"
-        >
-          <svg
-            width="24px"
-            height="24px"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M6 18L18 6M6 6l12 12"
-              stroke="#ffffff"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </label>
-        <label htmlFor="sidebar-toggle" className="cursor-pointer block">
+        <div className="bg-[var(--clr-background-one)] hidden md:flex flex-row items-center gap-6 py-2 px-4 rounded-[var(--corner-radius)] font-medium">
           <NavLink
             to="/artifacts"
             className={({ isActive }) =>
               isActive
                 ? "text-[var(--clr-primary)]"
-                : "text-gray-300 hover:text-white transition-colors"
+                : "text-[var(--clr-grey-one)]"
             }
           >
             Artifacts
           </NavLink>
-        </label>
-        <label htmlFor="sidebar-toggle" className="cursor-pointer block">
           <NavLink
             to="/members"
             className={({ isActive }) =>
               isActive
                 ? "text-[var(--clr-primary)]"
-                : "text-gray-300 hover:text-white transition-colors"
+                : "text-[var(--clr-grey-one)]"
             }
           >
             Members
           </NavLink>
-        </label>
-        <label htmlFor="sidebar-toggle" className="cursor-pointer block">
+          {isLoggedIn ? (
+            <NavLink to="/profile" className="cursor-pointer">
+              {role === "seller" ? (
+                <img
+                  className="w-[32px] aspect-square rounded-full"
+                  src={profilePhoto}
+                />
+              ) : (
+                <UserProfileIcon />
+              )}
+            </NavLink>
+          ) : (
+            <NavLink
+              to="/sign-in"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-[var(--clr-primary)]"
+                  : "text-[var(--clr-grey-one)]"
+              }
+            >
+              Sign In
+            </NavLink>
+          )}
+        </div>
+        <input type="checkbox" id="sidebar-toggle" className="peer hidden" />
+        <div className="flex flex-row items-center gap-2 md:hidden">
           {isLoggedIn && (
             <NavLink to="/profile" className="cursor-pointer">
               {role === "seller" ? (
                 <img
-                  className="w-[48px] aspect-square rounded-full object-cover border-2 border-gray-700"
+                  className="w-[32px] aspect-square rounded-full"
                   src={profilePhoto}
-                  alt="Profile"
                 />
               ) : (
-                <div className="text-white">
-                  <UserProfileIcon />
-                </div>
+                <UserProfileIcon />
               )}
             </NavLink>
           )}
-        </label>
+          <label htmlFor="sidebar-toggle" className="cursor-pointer">
+            <svg
+              width="24px"
+              height="24px"
+              viewBox="-0.5 0 25 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                {" "}
+                <path
+                  d="M2 12.32H22"
+                  stroke="#000000"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>{" "}
+                <path
+                  d="M2 18.32H22"
+                  stroke="#000000"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>{" "}
+                <path
+                  d="M2 6.32001H22"
+                  stroke="#000000"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>{" "}
+              </g>
+            </svg>
+          </label>
+        </div>
+
+        <div className="flex md:hidden flex-col h-screen bg-black w-64 fixed top-0 right-0 pt-16 px-6 gap-8 font-medium z-50 shadow-2xl transform translate-x-full peer-checked:translate-x-0 transition-transform duration-300 ease-in-out">
+          <label
+            htmlFor="sidebar-toggle"
+            className="absolute top-5 right-5 cursor-pointer"
+          >
+            <svg
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 18L18 6M6 6l12 12"
+                stroke="#ffffff"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </label>
+          <label htmlFor="sidebar-toggle" className="cursor-pointer block">
+            <NavLink
+              to="/artifacts"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-[var(--clr-primary)]"
+                  : "text-gray-300 hover:text-white transition-colors"
+              }
+            >
+              Artifacts
+            </NavLink>
+          </label>
+          <label htmlFor="sidebar-toggle" className="cursor-pointer block">
+            <NavLink
+              to="/members"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-[var(--clr-primary)]"
+                  : "text-gray-300 hover:text-white transition-colors"
+              }
+            >
+              Members
+            </NavLink>
+          </label>
+          <label htmlFor="sidebar-toggle" className="cursor-pointer block">
+            <NavLink
+              to="/terms-n-conditions"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-[var(--clr-primary)]"
+                  : "text-gray-300 hover:text-white transition-colors"
+              }
+            >
+              Terms & Conditions
+            </NavLink>
+          </label>
+          <label htmlFor="sidebar-toggle" className="cursor-pointer block">
+            <a
+              href="https://github.com/praxham/madeinvikhroli/issues"
+              className="text-white"
+            >
+              Report Bug
+            </a>
+          </label>
+          <label htmlFor="sidebar-toggle" className="cursor-pointer block">
+            {isLoggedIn && (
+              <NavLink to="/profile" className="cursor-pointer">
+                {role === "seller" ? (
+                  <img
+                    className="w-[48px] aspect-square rounded-full object-cover border-2 border-gray-700"
+                    src={profilePhoto}
+                    alt="Profile"
+                  />
+                ) : (
+                  <div className="text-white">
+                    <UserProfileIcon />
+                  </div>
+                )}
+              </NavLink>
+            )}
+          </label>
+        </div>
       </div>
     </div>
   );
